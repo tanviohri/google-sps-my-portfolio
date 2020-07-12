@@ -4,6 +4,10 @@
   width: 650px;
 }
 
+.main {
+  margin-top: 30px; 
+}
+
 #greeting-container {
   margin-top: 20px;
 }
@@ -65,6 +69,9 @@
 .topnav {
   overflow: hidden;
   background-color:transparent;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
 }
 
 .topnav a {
@@ -77,11 +84,6 @@
 }
 
 .topnav a:hover {
-  background-color: purple;
-  color: white;
-}
-
-.topnav a.active {
   background-color: plum;
   color: white;
 }
