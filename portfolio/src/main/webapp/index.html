@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>    
 	<meta charset="UTF-8">
 	<title>Tanvi Ohri's Portfolio</title>
 	<link rel="stylesheet" href="style.css">
@@ -11,8 +11,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
-<body>
+<body onload="getComments()">
 	<div class="topnav">
+        <a href="#comments">Comments</a>
 		<a href="#contact">Contact Me</a>
 		<a href="#eande">Events and Experiences</a>
 		<a href="#projects">Projects</a>
@@ -265,9 +266,21 @@
 			<a href="https://medium.com/@tanviohri" class="fa fa-medium"></a>
 			<a href="https://drive.google.com/file/d/1tTft2juHP6HzyO24twWxaQjR1fcJZRe9/view?usp=sharing"
 				class="btn btn-primary" style="background-color:white;color:plum;border-color:white"><b>Resume</b></a>
+        <br>   
 		</div>
+    </section>
+	<br>
+	<br>
+	<section class="page-section bg-light" id="comments">
+		<div id="content">
+            <h2 style="color:plum;opacity:0.5;">Comments</h2>
+            <comment-element> Tanvi Ohri: Leave a comment for me! </comment-element>
+    <div id="comments-container"></div>    
+    <form action="/data" method="POST">
+         <textarea name="new-comment">Your-Name-Goes-Here: Your-Comment-Goes-Here </textarea>
+    <input type="submit"/>    
+    </form>
 		</div>
 	</section>
 </body>
-
 </html>

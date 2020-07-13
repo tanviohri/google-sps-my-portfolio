@@ -1,9 +1,21 @@
 html {
   scroll-padding-top: 50px; 
 }
+
+comment-element{
+  display: block;
+  background-color: white;
+  margin-top: 5px;
+  margin-bottom:5px;
+  padding-left: 5px;
+  border: 5px solid whitesmoke;
+  border-inline-start-color: plum;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
   width: 650px;
 }
 .container {
@@ -115,6 +127,16 @@ html {
     background:plum;
     color: white;
     opacity: 0.5;
+}
+
+textarea{
+    width: 80%;
+}
+
+input[type=submit]{
+  background-color: plum;
+  border: none;
+  color: white;
 }
 
 
