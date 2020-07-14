@@ -129,10 +129,6 @@ comment-element{
     opacity: 0.5;
 }
 
-textarea{
-    width: 80%;
-}
-
 input[type=submit]{
   background-color: plum;
   border: none;

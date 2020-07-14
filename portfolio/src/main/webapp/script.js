@@ -30,6 +30,6 @@ async function getComments() {
 
 function createElement(currcomment) {
   const element = document.createElement('comment-element');
-  element.innerText = currcomment.commentText;
+  element.innerText = currcomment.name + ": " + currcomment.commentText;
   return element;
 }
