@@ -15,14 +15,21 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
-    const greetings =
-        ['Hello!', 'Selamat', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!', 'Good day!'];
+ window.customElements.define('comment-element', class extends HTMLElement {'p'});
 
-    // Pick a random greeting.
-    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+async function getComments() {
+  const response = await fetch('/data');
+  const comments = await response.json();
+  container=document.getElementById('comments-container');
+  comments.map(function(currcomment){
+        container.appendChild(
+            createElement(currcomment)
+        );
+  });
+}
 
-    // Add it to the page.
-    const greetingContainer = document.getElementById('greeting-container');
-    greetingContainer.innerText = greeting;
+function createElement(text) {
+  const element = document.createElement('comment-element');
+  element.innerText = text;
+  return element;
 }
