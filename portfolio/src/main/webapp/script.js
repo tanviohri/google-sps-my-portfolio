@@ -28,8 +28,8 @@ async function getComments() {
   });
 }
 
-function createElement(text) {
+function createElement(currcomment) {
   const element = document.createElement('comment-element');
-  element.innerText = text;
+  element.innerText = currcomment.commentText;
   return element;
 }
