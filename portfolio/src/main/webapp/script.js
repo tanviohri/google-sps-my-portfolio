@@ -28,6 +28,9 @@ async function getComments() {
 
 function createElement(currcomment) {
   const element = document.createElement('comment-element');
-  element.innerText = currcomment.name + ": " + currcomment.commentText + " (" + currcomment.score + ")";
+  symbolCode = "&#128528";
+  if(currcomment.score > 0.35) symbolCode="&#x1f44d";
+  if(currcomment.score < -0.35) symbolCode="&#x1f44e";
+  element.innerHTML = currcomment.name + ": " + "<i>" + currcomment.commentText + "</i> " + symbolCode;
   return element;
 }
