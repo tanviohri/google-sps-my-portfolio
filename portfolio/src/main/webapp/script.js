@@ -15,21 +15,19 @@
 /**
  * Adds a random greeting to the page.
  */
- window.customElements.define('comment-element', class extends HTMLElement {'p'});
+window.customElements.define('comment-element', class extends HTMLElement {'p'});
 
 async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
   container=document.getElementById('comments-container');
   comments.map(function(currcomment){
-        container.appendChild(
-            createElement(currcomment)
-        );
+        container.appendChild(createElement(currcomment));
   });
 }
 
 function createElement(currcomment) {
   const element = document.createElement('comment-element');
-  element.innerText = currcomment.name + ": " + currcomment.commentText;
+  element.innerText = currcomment.name + ": " + currcomment.commentText + " (" + currcomment.score + ")";
   return element;
 }
