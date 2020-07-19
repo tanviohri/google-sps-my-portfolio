@@ -51,7 +51,7 @@ public class DataServlet extends HttpServlet {
             long timestamp = (long) entity.getProperty("timestamp");
             double score = (double) entity.getProperty("score");
 
-            Comment currComment = new Comment(name, commentText, timestamp);
+            Comment currComment = new Comment(name, commentText, timestamp, score);
             comments.add(currComment);
         }
 
