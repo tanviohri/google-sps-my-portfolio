@@ -21,15 +21,15 @@ async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
   container=document.getElementById('comments-container');
-  comments.map(function(currcomment){
+  comments.map(function(currComment){
         container.appendChild(
-            createElement(currcomment)
+            createElement(currComment)
         );
   });
 }
 
-function createElement(currcomment) {
+function createElement(currComment) {
   const element = document.createElement('comment-element');
-  element.innerText = currcomment.name + ": " + currcomment.commentText;
+  element.innerText = currComment.name + ": " + currComment.commentText;
   return element;
 }

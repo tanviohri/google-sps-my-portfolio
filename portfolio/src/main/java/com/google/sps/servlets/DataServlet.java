@@ -37,17 +37,16 @@ public class DataServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        PreparedQuery results = datastore.prepare(query);
+        PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(query);
 
         List<Comment> comments = new ArrayList<>();
         for (Entity entity : results.asIterable()) {
-            String name= (String) entity.getProperty("name");
+            String name = (String) entity.getProperty("name");
             String commentText = (String) entity.getProperty("commentText");
             long timestamp = (long) entity.getProperty("timestamp");
 
-            Comment currcomment = new Comment(name, commentText, timestamp);
-            comments.add(currcomment);
+            Comment currComment = new Comment(name, commentText, timestamp);
+            comments.add(currComment);
         }
 
         Gson gson = new Gson();
@@ -55,16 +54,13 @@ public class DataServlet extends HttpServlet {
         response.getWriter().println(gson.toJson(comments));
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String newComment = request.getParameter("new-comment");
-        String newName = request.getParameter("new-name");
         Entity commentEntity = new Entity("Comment");
         
-        commentEntity.setProperty("name", newName);
-        commentEntity.setProperty("commentText", newComment);
+        commentEntity.setProperty("name", request.getParameter("new-name"));
+        commentEntity.setProperty("commentText", request.getParameter("new-comment"));
         commentEntity.setProperty("timestamp", System.currentTimeMillis());
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+        DatastoreServiceFactory.getDatastoreService().put(commentEntity);
 
         response.sendRedirect("/index.html#comments");
     }
