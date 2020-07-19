@@ -21,16 +21,20 @@ async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
   container=document.getElementById('comments-container');
-  comments.map(function(currcomment){
-        container.appendChild(createElement(currcomment));
+  comments.map(function(currComment){
+        container.appendChild(
+            createElement(currComment)
+        );
   });
 }
 
-function createElement(currcomment) {
+function createElement(currComment) {
   const element = document.createElement('comment-element');
+
   symbolCode = "&#128528";
-  if(currcomment.score > 0.35) symbolCode="&#x1f44d";
-  if(currcomment.score < -0.35) symbolCode="&#x1f44e";
-  element.innerHTML = currcomment.name + ": " + "<i>" + currcomment.commentText + "</i> " + symbolCode;
+  if(currComment.score > 0.35) symbolCode="&#x1f44d";
+  if(currComment.score < -0.35) symbolCode="&#x1f44e";
+  element.innerHTML = currComment.name + ": " + "<i>" + currComment.commentText + "</i> " + symbolCode;
+
   return element;
 }
