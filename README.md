@@ -1,4 +1,4 @@
-# Google Software Product Sprint My Portfolio
+# Google Software Product Sprint: My Portfolio
 
 This repo contains Tanvi Ohri's portfolio. This was created during Google's Software Product Sprint 2020.
 
