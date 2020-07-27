@@ -67,8 +67,7 @@ public class DataServlet extends HttpServlet {
         Document doc =
         Document.newBuilder().setContent(newComment).setType(Document.Type.PLAIN_TEXT).build();
         LanguageServiceClient languageService = LanguageServiceClient.create();
-        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-        double score = sentiment.getScore();
+        double score = languageService.analyzeSentiment(doc).getDocumentSentiment().getScore();
         languageService.close();
       
         commentEntity.setProperty("name", request.getParameter("new-name"));
