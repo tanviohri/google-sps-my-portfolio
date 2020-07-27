@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -33,6 +36,7 @@ import java.util.List;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
@@ -40,12 +44,14 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(query);
 
         List<Comment> comments = new ArrayList<>();
+
         for (Entity entity : results.asIterable()) {
             String name = (String) entity.getProperty("name");
             String commentText = (String) entity.getProperty("commentText");
             long timestamp = (long) entity.getProperty("timestamp");
+            double score = (double) entity.getProperty("score");
 
-            Comment currComment = new Comment(name, commentText, timestamp);
+            Comment currComment = new Comment(name, commentText, timestamp, score);
             comments.add(currComment);
         }
 
@@ -53,12 +59,21 @@ public class DataServlet extends HttpServlet {
         response.setContentType("application/json;");
         response.getWriter().println(gson.toJson(comments));
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String newComment = request.getParameter("new-comment");
         Entity commentEntity = new Entity("Comment");
         
+        Document doc =
+        Document.newBuilder().setContent(newComment).setType(Document.Type.PLAIN_TEXT).build();
+        LanguageServiceClient languageService = LanguageServiceClient.create();
+        double score = languageService.analyzeSentiment(doc).getDocumentSentiment().getScore();
+        languageService.close();
+      
         commentEntity.setProperty("name", request.getParameter("new-name"));
-        commentEntity.setProperty("commentText", request.getParameter("new-comment"));
+        commentEntity.setProperty("commentText", newComment);
         commentEntity.setProperty("timestamp", System.currentTimeMillis());
+        commentEntity.setProperty("score", score);
 
         DatastoreServiceFactory.getDatastoreService().put(commentEntity);
 

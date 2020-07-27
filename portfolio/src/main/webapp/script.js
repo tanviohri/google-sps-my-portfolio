@@ -15,7 +15,7 @@
 /**
  * Adds a random greeting to the page.
  */
- window.customElements.define('comment-element', class extends HTMLElement {'p'});
+window.customElements.define('comment-element', class extends HTMLElement {'p'});
 
 async function getComments() {
   const response = await fetch('/data');
@@ -30,6 +30,11 @@ async function getComments() {
 
 function createElement(currComment) {
   const element = document.createElement('comment-element');
-  element.innerText = currComment.name + ": " + currComment.commentText;
+
+  symbolCode = "&#128528";
+  if(currComment.score > 0.35) symbolCode="&#x1f44d";
+  if(currComment.score < -0.35) symbolCode="&#x1f44e";
+  element.innerHTML = currComment.name + ": " + "<i>" + currComment.commentText + "</i> " + symbolCode;
+
   return element;
 }
